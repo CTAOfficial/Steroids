@@ -1,0 +1,30 @@
+#pragma once
+#include "Basic2D.h"
+#include <SDL3/SDL_render.h>
+
+enum Direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
+
+class Game;
+
+class Player : public Basic2D {
+
+private:
+	Vector2 Bounds;
+	SDL_Keycode RightKey = NULL;
+	SDL_Keycode LeftKey = NULL;
+
+public:
+	Player(int index, Vector2 pos, RGBA rgba);
+
+	int playerIndex = 0;
+	float speed = 500;
+
+	void Update(Game& game, float deltaTime) override;
+
+	void SetBounds(Vector2 bounds);
+};
