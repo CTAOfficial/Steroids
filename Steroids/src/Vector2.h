@@ -20,12 +20,6 @@ public:
 	float Y = 0;
 
 	std::string ToString() const {
-		std::string string;
-		string += "(";
-		string += std::to_string(X);
-		string += ", ";
-		string += std::to_string(Y);
-		string += ")";
-		return string;
+		return std::string("(" + std::to_string(X) + ", " + std::to_string(Y) + ")");
 	}
 };
