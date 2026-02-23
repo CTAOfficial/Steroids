@@ -149,6 +149,7 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\Widgets\EntityManagementObserver.cpp" />
     <ClCompile Include="src\Widgets\Widget.cpp" />
     <ClCompile Include="src\Windowing\Window.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\DynamicArray.h" />
     <ClInclude Include="src\Entities\Basic2D.h" />
     <ClInclude Include="src\Entities\Player.h" />
+    <ClInclude Include="src\Entities\VelocityObject.h" />
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\InputManager.h" />

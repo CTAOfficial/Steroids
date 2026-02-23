@@ -3,7 +3,7 @@
 #include <iostream>
 #include "../InputManager.h"
 
-Player::Player(int index, Vector2 pos, RGBA rgba) : Basic2D(pos, Vector2{ 75, 15 }, rgba)
+Player::Player(int index, Vector2 pos, RGBA rgba) : Basic2D(pos, Vector2{ 50, 50 }, rgba)
 {
 	playerIndex = index;
 	tag = "Player";

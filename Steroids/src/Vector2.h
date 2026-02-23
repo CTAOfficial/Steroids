@@ -4,11 +4,14 @@
 
 struct Vector2 {
 public:
-	Vector2(){}
-	Vector2(float x) {
+	static Vector2 Zero;
+	static Vector2 One;
+
+	Vector2() {}
+	Vector2(float x) : Vector2() {
 		X = x;
 	}
-	Vector2(float x, float y) {
+	Vector2(float x, float y) : Vector2() {
 		X = x;
 		Y = y;
 	}
