@@ -20,6 +20,13 @@ private:
 	SDL_Keycode LeftKey = NULL;
 	SDL_Keycode RightKey = NULL;
 
+	Vector2 velocity;
+	Vector2 acceleration;
+	float angle = 0;
+	float RotationSpeed = 5;
+	float MaxSpeed = 5;
+	float deceleration = 0.9f;
+
 public:
 	Player(int index, Vector2 pos, RGBA rgba);
 
@@ -27,6 +34,7 @@ public:
 	float speed = 500;
 
 	void Update(Game& game, float deltaTime) override;
+	void Rotate(float dir);
 
 	void SetBounds(Vector2 bounds);
 

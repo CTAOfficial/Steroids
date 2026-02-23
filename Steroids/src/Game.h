@@ -16,6 +16,8 @@ private:
 	Vector2 PlayerBounds;
 	TextUI* ui = nullptr;
 
+	void LoadIcon();
+
 public:
 	Game(std::string& title, Vector2 size);
 	~Game();

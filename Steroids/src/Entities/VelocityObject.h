@@ -7,4 +7,7 @@
 class VelocityObject : public Basic2D {
 public:
 	Vector2 velocity;
+
+	float angle;
+	float radius;
 };

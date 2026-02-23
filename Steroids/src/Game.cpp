@@ -8,6 +8,7 @@
 #include "imgui/backends/imgui_impl_sdlrenderer3.h"
 #include "DynamicArray.h"
 #include <iostream>
+#include <SDL3_image/SDL_image.h>
 
 
 Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)size.Y)
@@ -67,6 +68,7 @@ void Game::Run()
 
 void Game::Start()
 {
+	LoadIcon();
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -76,6 +78,11 @@ void Game::Start()
 
 	ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer3_Init(renderer);
+}
+void Game::LoadIcon() {
+	SDL_Surface* icon = IMG_Load("build/icon.png");
+	SDL_SetWindowIcon(window, icon);
+	SDL_DestroySurface(icon);
 }
 
 void Game::Update() {

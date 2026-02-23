@@ -20,6 +20,7 @@ protected:
 	virtual void Update() {}
 	virtual void OnClose(){}
 
+
 public:
 	~Window();	
 

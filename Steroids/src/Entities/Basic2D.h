@@ -18,13 +18,13 @@ public:
 		colour = rgba;
 		rect = { (float)pos.X, (float)pos.Y, 0, 0 };
 		center = { rect.w * 0.5f, rect.h * 0.5f };
-		centerPos = Vector2{ position.X + center.X, position.Y + center.Y };
+		centerPos = position + center;
 	}
 	Basic2D(Vector2 pos, Vector2 dims, RGBA rgba) : Basic2D(pos, rgba) {
 		rect.w = dims.X;
 		rect.h = dims.Y;
 		center = { rect.w * 0.5f, rect.h * 0.5f };
-		centerPos = Vector2{ position.X + center.X, position.Y + center.Y };
+		centerPos = position + center;
 	}
 
 	Vector2 position;

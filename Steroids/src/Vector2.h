@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cmath>
 
 struct Vector2 {
 public:
@@ -19,7 +20,68 @@ public:
 	float X = 0;
 	float Y = 0;
 
+	float Magitude() {
+		return sqrtf(X * X + Y * Y);
+	}
+	Vector2 Normalized() {
+		float mag = Magitude();
+
+		Vector2 vec(X, Y);
+
+		if (mag > 0) {
+			vec.X /= mag;
+			vec.Y /= mag;
+		}
+
+		return vec;
+	}
+	void Normalize() {
+		Vector2 normalized = Normalized();
+
+		X = normalized.X;
+		Y = normalized.Y;
+	}
+
+
 	std::string ToString() const {
 		return std::string("(" + std::to_string(X) + ", " + std::to_string(Y) + ")");
+	}
+
+	Vector2 operator+ (const Vector2& obj) {
+
+		return { X += obj.X, Y += obj.Y };
+
+	}
+	Vector2 operator+= (const Vector2& obj) {
+
+		return *this + obj;
+
+	}
+	Vector2 operator- (const Vector2& obj) {
+
+		return { X -= obj.X, Y -= obj.Y };
+	}
+	Vector2 operator-= (const Vector2& obj) {
+
+		return *this - obj;
+
+	}
+	Vector2 operator* (const int& obj) {
+
+		return { X *= obj, Y *= obj };
+	}
+	Vector2 operator* (const Vector2& obj) {
+
+		return { X *= obj.X, Y *= obj.Y };
+	}
+	Vector2 operator *= (const int& obj) {
+
+		return *this * obj;
+
+	}	
+	Vector2 operator*= (const Vector2& obj) {
+
+		return *this * obj;
+
 	}
 };
