@@ -18,7 +18,10 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	player = new Player(0, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.9f }, RGBA{ 255, 255, 255, 255 });
 	player->SetBounds(Bounds);
 
-
+	player->SetUpKey(SDLK_W);
+	player->SetDownKey(SDLK_S);
+	player->SetLeftKey(SDLK_A);
+	player->SetRightKey(SDLK_D);
 
 }
 
@@ -77,7 +80,7 @@ void Game::Start()
 
 void Game::Update() {
 
-	if (InputManager::GetKey(SDLK_ESCAPE)) { Close(); }
+	if (InputManager::GetKey(SDLK_ESCAPE)) { Close(); return; }
 
 	EntityManager::PreUpdate();
 	EntityManager::Update(*this, deltaTime);
