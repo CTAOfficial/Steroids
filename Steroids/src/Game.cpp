@@ -16,7 +16,7 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	screenCenter = Vector2{ size.X * 0.5f, size.Y * 0.5f };
 	Bounds = size;
 
-	player = new Player(0, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.9f }, RGBA{ 255, 255, 255, 255 });
+	player = new Player(0, renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
 
 	player->SetUpKey(SDLK_W);
@@ -40,10 +40,6 @@ void Game::Run()
 
 	Start();
 	while (IsRunning) {
-		lastTick = currentTick;
-		currentTick = SDL_GetTicks();
-		deltaTime = static_cast<double>(currentTick - lastTick) / 1000.0;
-
 		ImGui_ImplSDL3_NewFrame();
 		ImGui::NewFrame();
 
@@ -89,9 +85,13 @@ void Game::Update() {
 
 	if (InputManager::GetKey(SDLK_ESCAPE)) { Close(); return; }
 
+	lastTick = currentTick;
+	currentTick = SDL_GetTicks();
+	double dt = static_cast<double>(currentTick - lastTick) / 1000.0;
+
 	EntityManager::PreUpdate();
-	EntityManager::Update(*this, deltaTime);
-	CollisionSystem::Update(EntityManager::GetEntities());
+	EntityManager::Update(*this, dt);
+	//CollisionSystem::Update(EntityManager::GetEntities());
 	EntityManager::Draw(renderer);
 	
 }

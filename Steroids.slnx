@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Steroids/Steroids.vcxproj" />
+  <Project Path="Steroids/Steroids.vcxproj" Id="4ebca8d8-4655-446a-951a-09b10215bebe" />
 </Solution>

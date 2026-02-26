@@ -1,11 +1,14 @@
 #include "Player.h"
 #include "../Game.h"
 #include "../InputManager.h"
+#include "Sprite.h"
 #include <numbers>
 #include <iostream>
 
-Player::Player(int index, Vector2 pos, RGBA rgba) : Basic2D(pos, Vector2{ 50, 50 }, rgba)
+Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 {
+	sprite = new Sprite{ renderer, "build/images/player.png" };
+	sprite->scale = { 0.15f, 0.15f };
 	playerIndex = index;
 	tag = "Player";
 }
@@ -15,60 +18,65 @@ void Player::Update(Game& game, float deltaTime)
 	bool accelerating = false;
 
 	if (InputManager::GetKeyDown(UpKey)) {
-		if (position.Y <= 0) { position.Y = 0; return; }
-		position.Y -= speed * deltaTime;
-	}
-	if (InputManager::GetKeyDown(DownKey)) {
-		if (position.Y + rect.h >= Bounds.Y) { position.Y = Bounds.Y - rect.h; return; }
-		position.Y += speed * deltaTime;
-	}
-
-	if (InputManager::GetKeyDown(LeftKey)) {
-		/*if (position.X <= 0) { position.X = 0; return; }
-		position.X -= speed * deltaTime;*/
-
-		acceleration.X = -1000 * deltaTime;
 		accelerating = true;
-		//Rotate(-1);
+	}
+	if (InputManager::GetKeyDown(LeftKey)) {
+		Rotate(-1, deltaTime);
 	}
 	if (InputManager::GetKeyDown(RightKey)) {
-		/*if (position.X + rect.w >= Bounds.X) { position.X = Bounds.X - rect.w; return; }
-		position.X += speed * deltaTime;*/
-
-		acceleration.X = 1000 * deltaTime;
-		accelerating = true;
-		//Rotate(1);
+		Rotate(1, deltaTime);
 	}
+	
 	if (accelerating) {
-		//velocity.X += std::cos(angle) * MaxSpeed;
-		//velocity.Y += std::sin(angle) * MaxSpeed;
+		acceleration.X += std::cos(angle) * deltaTime * MaxSpeed;
+		acceleration.Y += std::sin(angle) * deltaTime * MaxSpeed;
 
 		velocity += acceleration;		
 		std::cout << "Velocity: " << velocity.ToString() + "\n";
 		std::cout << "Acceleration: " << acceleration.ToString() + "\n";
 	}
+	else {
+		acceleration = Vector2::Zero;
+	}
 
 	if (velocity.Magitude() > MaxSpeed) {
+		std::cout << velocity.Magitude() << "\n";
 		velocity.Normalize();
 		velocity *= MaxSpeed;
 	}
 
-	velocity *= deceleration;
+	if (velocity.Magitude() > 0) 
+	{ 
+		//TODO: handle deceleration
+		velocity *= (1 - deceleration) * deltaTime;
+	}
 	//std::cout << velocity.ToString();
 
 	position += velocity;
 }
 
-void Player::Rotate(float dir)
+void Player::Draw(SDL_Renderer* renderer)
 {
-	angle += RotationSpeed * dir;
+	GameObject::Draw(renderer);
+
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderLine(renderer, position.X, position.Y, position.X + (velocity.X * 500), position.Y + (velocity.Y * 500));
+	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+	SDL_RenderLine(renderer, position.X, position.Y, position.X + (std::cos(angle) * 500), position.Y + (std::sin(angle) * 500));
+}
+
+void Player::Rotate(float dir, float deltaTime)
+{
+	angle += RotationSpeed * dir * deltaTime;
 
 	if (angle < 0) {
-		angle = 2 * std::numbers::pi;
+		angle = 2 * std::numbers::pi_v<float>;
 	}
-	if (angle > 2 * std::numbers::pi) {
+	else if (angle > 2 * std::numbers::pi_v<float>) {
 		angle = 0;
 	}
+
+	sprite->rotation = angle * 180 / std::numbers::pi;
 }
 
 void Player::SetBounds(Vector2 bounds)

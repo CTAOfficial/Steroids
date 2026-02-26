@@ -66,7 +66,7 @@ public:
 		return *this - obj;
 
 	}
-	Vector2 operator* (const int& obj) {
+	Vector2 operator* (const float& obj) {
 
 		return { X *= obj, Y *= obj };
 	}
@@ -74,7 +74,7 @@ public:
 
 		return { X *= obj.X, Y *= obj.Y };
 	}
-	Vector2 operator *= (const int& obj) {
+	Vector2 operator *= (const float& obj) {
 
 		return *this * obj;
 

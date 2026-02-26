@@ -144,11 +144,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
     <ClCompile Include="src\Entities\Basic2D.cpp" />
+    <ClCompile Include="src\Entities\GameObject.cpp" />
     <ClCompile Include="src\Entities\Player.cpp" />
     <ClCompile Include="src\Entities\Projectile.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\Widgets\EntityManagementObserver.cpp" />
@@ -159,18 +161,30 @@
     <ClInclude Include="src\CollisionSystem.h" />
     <ClInclude Include="src\DynamicArray.h" />
     <ClInclude Include="src\Entities\Basic2D.h" />
+    <ClInclude Include="src\Entities\GameObject.h" />
+    <ClInclude Include="src\Entities\Object.h" />
     <ClInclude Include="src\Entities\Player.h" />
     <ClInclude Include="src\Entities\Projectile.h" />
     <ClInclude Include="src\Entities\VelocityObject.h" />
     <ClInclude Include="src\EntityManager.h" />
     <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\IDrawable.h" />
     <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\IUpdateable.h" />
     <ClInclude Include="src\RGBA.h" />
+    <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\UI\TextUI.h" />
+    <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\Widgets\EntityManagementObserver.h" />
     <ClInclude Include="src\Widgets\Widget.h" />
     <ClInclude Include="src\Windowing\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\SDL3.lib" />
+    <Library Include="lib\SDL3_image.lib" />
+    <Library Include="lib\SDL3_mixer.lib" />
+    <Library Include="lib\SDL3_ttf.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

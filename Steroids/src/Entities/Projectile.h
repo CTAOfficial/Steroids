@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Basic2D.h"
+#include "GameObject.h"
 
-class Projectile : public Basic2D {
+class Projectile : public GameObject {
 public:
-	Projectile(Vector2 pos) : Basic2D(pos, RGBA {255, 255, 255, 255}) {
+	Projectile(Vector2 pos) : GameObject(pos){}
+	Projectile(Sprite* sprite, Vector2 pos) : GameObject(sprite, pos){}
 
-	}
 	void Update(Game& game, float deltaTime) override;
-	void Draw(SDL_Renderer* renderer) override;
 };

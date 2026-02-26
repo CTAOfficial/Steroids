@@ -1,5 +1,5 @@
 #pragma once
-#include "Basic2D.h"
+#include "GameObject.h"
 #include <SDL3/SDL_render.h>
 
 enum Direction {
@@ -11,7 +11,7 @@ enum Direction {
 
 class Game;
 
-class Player : public Basic2D {
+class Player : public GameObject {
 
 private:
 	Vector2 Bounds;
@@ -23,18 +23,19 @@ private:
 	Vector2 velocity;
 	Vector2 acceleration;
 	float angle = 0;
-	float RotationSpeed = 5;
-	float MaxSpeed = 5;
-	float deceleration = 0.9f;
+	float RotationSpeed = 4;
+	float MaxSpeed = 100;
+	float deceleration = 0.4f;
 
 public:
-	Player(int index, Vector2 pos, RGBA rgba);
+	Player(int index, SDL_Renderer* renderer, Vector2 pos);
 
 	int playerIndex = 0;
-	float speed = 500;
+	float speed = 10;
 
 	void Update(Game& game, float deltaTime) override;
-	void Rotate(float dir);
+	void Draw(SDL_Renderer* renderer) override;
+	void Rotate(float dir, float deltaTime);
 
 	void SetBounds(Vector2 bounds);
 

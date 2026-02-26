@@ -14,6 +14,7 @@ static bool Initialize() {
 		std::cout << "SDL Failed to initialize.\n";
 		return false;
 	}
+
 	if (!TTF_Init()) {
 		std::cout << "SDL_TTF Failed to initialize.\n";
 		return false;

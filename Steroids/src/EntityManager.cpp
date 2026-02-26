@@ -1,18 +1,18 @@
 #include "EntityManager.h"
-#include "Entities/Basic2D.h"
+#include "Entities/GameObject.h"
 
-std::vector<Basic2D*> EntityManager::Entities;
-std::stack<Basic2D*> EntityManager::DestroyQueue;
+std::vector<GameObject*> EntityManager::Entities;
+std::stack<GameObject*> EntityManager::DestroyQueue;
 
-void EntityManager::Add(Basic2D* entity)
+void EntityManager::Add(GameObject* entity)
 {
 	Entities.push_back(entity);
 }
 
-void EntityManager::AddToRemove(Basic2D* entity) {
+void EntityManager::AddToRemove(GameObject* entity) {
 	DestroyQueue.push(entity);
 }
-void EntityManager::Remove(Basic2D* entity)
+void EntityManager::Remove(GameObject* entity)
 {
 	std::erase(Entities, entity);
 }
@@ -34,14 +34,14 @@ void EntityManager::Update(Game& game, float deltaTime)
 void EntityManager::PreUpdate()
 {
 	while (!DestroyQueue.empty()) {
-		Basic2D* entity = DestroyQueue.top();
+		GameObject* entity = DestroyQueue.top();
 		Remove(entity);
 		DestroyQueue.pop();
 	}
 }
 
 void EntityManager::Shutdown() {
-	for (Basic2D* entity : Entities) {
+	for (GameObject* entity : Entities) {
 		delete entity;
 	}
 }

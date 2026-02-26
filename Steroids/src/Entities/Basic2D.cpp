@@ -3,7 +3,7 @@
 #include "../EntityManager.h"
 
 Basic2D::Basic2D() {
-    EntityManager::Add(this);
+    //EntityManager::Add(this);
     tag = "Basic2D";
 }
 void Basic2D::Draw(SDL_Renderer* renderer)
@@ -19,5 +19,5 @@ bool Basic2D::IsOverlapping(Basic2D& other)
 }
 
 void Basic2D::Destroy(Basic2D& entity) {
-    EntityManager::AddToRemove(&entity);
+    //EntityManager::AddToRemove(&entity);
 }
