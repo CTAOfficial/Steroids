@@ -4,8 +4,10 @@
 
 class Projectile : public GameObject {
 public:
-	Projectile(Vector2 pos) : GameObject(pos){}
-	Projectile(Sprite* sprite, Vector2 pos) : GameObject(sprite, pos){}
+	Projectile(Vector2 pos){}
+
+	Vector2 velocity;
 
 	void Update(Game& game, float deltaTime) override;
+
 };

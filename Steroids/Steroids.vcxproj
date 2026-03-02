@@ -175,6 +175,7 @@
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
+    <ClInclude Include="src\Utilities\Assets.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\Widgets\EntityManagementObserver.h" />
     <ClInclude Include="src\Widgets\Widget.h" />

@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
+#include "Projectile.h"
 #include <SDL3/SDL_render.h>
+#include <vector>
 
 enum Direction {
 	Up,
@@ -15,6 +17,8 @@ class Player : public GameObject {
 
 private:
 	Vector2 Bounds;
+	Vector2 firePos;
+	float fireOffset = 2;
 	SDL_Keycode UpKey = NULL;
 	SDL_Keycode DownKey = NULL;
 	SDL_Keycode LeftKey = NULL;
@@ -25,7 +29,13 @@ private:
 	float angle = 0;
 	float RotationSpeed = 4;
 	float MaxSpeed = 100;
-	float deceleration = 0.4f;
+	float deceleration = 0.5f;
+	SDL_Texture* bulletTexture = nullptr;
+
+	std::vector<Projectile*> bullets;
+
+	bool CanFire();
+	Projectile& Fire();
 
 public:
 	Player(int index, SDL_Renderer* renderer, Vector2 pos);
@@ -43,4 +53,10 @@ public:
 	void SetDownKey(SDL_Keycode key);
 	void SetLeftKey(SDL_Keycode key);
 	void SetRightKey(SDL_Keycode key);
+
+	bool TryFire(Projectile* ref = nullptr);
+
+	Projectile& ForceFire() {
+		return Fire();
+	}
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <queue>
 #include <stack>
 #include <SDL3/SDL_render.h>
 
@@ -9,6 +10,7 @@ class GameObject;
 class EntityManager {
 private:
 	static std::vector<GameObject*> Entities;
+	static std::queue<GameObject*> ConstructionQueue;
 	static std::stack<GameObject*> DestroyQueue;
 	static void Remove(GameObject* entity);
 

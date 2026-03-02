@@ -4,11 +4,19 @@
 
 Sprite::Sprite()
 {
+
+}
+
+Sprite::Sprite(SDL_Texture* texture) : Sprite()
+{
+    this->texture = texture;
 }
 
 Sprite::Sprite(SDL_Renderer* renderer, std::string path) : Sprite()
 {
-    LoadTexture(renderer, path);
+    texture = LoadTexture(renderer, path);
+    center = { rect.w * 0.5f, rect.h * 0.5f };
+    rect = SDL_FRect{ position.X, position.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
 }
 
 Sprite::~Sprite()
@@ -20,14 +28,35 @@ void Sprite::Draw(SDL_Renderer* renderer)
 {
     centerPos = position + center;
 
-    rect = SDL_FRect { centerPos.X, centerPos.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
-
     if (texture != nullptr) {
+        rect = SDL_FRect { centerPos.X, centerPos.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
         SDL_RenderTextureRotated(renderer, texture, NULL, const_cast<SDL_FRect*>(&rect), rotation, NULL, SDL_FLIP_NONE);
+    }
+    else {
+        rect = SDL_FRect { centerPos.X, centerPos.Y, scale.X, scale.Y };
     }
 }
 
-bool Sprite::LoadTexture(SDL_Renderer* renderer, std::string path)
+SDL_Texture* Sprite::LoadTexture(SDL_Renderer* renderer, std::string path)
+{
+    SDL_Surface* surface = IMG_Load(path.c_str());
+    if (surface == nullptr)
+    {
+        std::cout << "Unable to load image '" << path << "'! SDL_image Error: " << SDL_GetError() << "\n";
+        return nullptr;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_DestroySurface(surface);
+    if (texture == nullptr)
+    {
+        std::cout << "Unable to load texture from surface." << SDL_GetError() << "\n";
+        return nullptr;
+    }
+    return texture;
+}
+
+bool Sprite::LoadTexture(SDL_Renderer* renderer, std::string path, SDL_Texture& outTexture)
 {
     SDL_Surface* surface = IMG_Load(path.c_str());
     if (surface == nullptr) 
@@ -36,17 +65,14 @@ bool Sprite::LoadTexture(SDL_Renderer* renderer, std::string path)
         return false; 
     }
 
-    
-
-    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
     SDL_DestroySurface(surface);
     if (texture == nullptr)
     {
         std::cout << "Unable to load texture from surface." << SDL_GetError() << "\n";
         return false;
     }
-
-    center = { rect.w * 0.5f, rect.h * 0.5f };
-    rect = SDL_FRect{ position.X, position.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
+    
+    outTexture = *texture;
     return true;
 }

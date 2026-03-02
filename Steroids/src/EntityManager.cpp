@@ -2,11 +2,12 @@
 #include "Entities/GameObject.h"
 
 std::vector<GameObject*> EntityManager::Entities;
+std::queue<GameObject*> EntityManager::ConstructionQueue;
 std::stack<GameObject*> EntityManager::DestroyQueue;
 
 void EntityManager::Add(GameObject* entity)
 {
-	Entities.push_back(entity);
+	ConstructionQueue.push(entity);
 }
 
 void EntityManager::AddToRemove(GameObject* entity) {
@@ -37,6 +38,12 @@ void EntityManager::PreUpdate()
 		GameObject* entity = DestroyQueue.top();
 		Remove(entity);
 		DestroyQueue.pop();
+	}
+
+	while (!ConstructionQueue.empty()) {
+		GameObject* entity = ConstructionQueue.front();
+		Entities.push_back(entity);
+		ConstructionQueue.pop();
 	}
 }
 

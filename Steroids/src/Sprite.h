@@ -6,6 +6,7 @@
 class Sprite {
 public:
 	Sprite();
+	Sprite(SDL_Texture* texture);
 	Sprite(SDL_Renderer* renderer, std::string path);
 	~Sprite();
 
@@ -19,7 +20,6 @@ public:
 	SDL_FRect rect;
 
 	void Draw(SDL_Renderer* renderer);
-	bool LoadTexture(SDL_Renderer* renderer, std::string path);
-
-
+	static bool LoadTexture(SDL_Renderer* renderer, std::string path, SDL_Texture& outTexture);
+	static SDL_Texture* LoadTexture(SDL_Renderer* renderer, std::string path);
 };

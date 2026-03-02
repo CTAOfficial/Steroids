@@ -2,13 +2,18 @@
 #include "../Game.h"
 #include "../InputManager.h"
 #include "Sprite.h"
+#include "Projectile.h"
 #include <numbers>
 #include <iostream>
+
 
 Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 {
 	sprite = new Sprite{ renderer, "build/images/player.png" };
 	sprite->scale = { 0.15f, 0.15f };
+
+	bulletTexture = Sprite::LoadTexture(renderer, "build/images/projectile.png");
+
 	playerIndex = index;
 	tag = "Player";
 }
@@ -25,6 +30,10 @@ void Player::Update(Game& game, float deltaTime)
 	}
 	if (InputManager::GetKeyDown(RightKey)) {
 		Rotate(1, deltaTime);
+	}
+
+	if (InputManager::GetKey(SDLK_SPACE)) {
+		TryFire();
 	}
 	
 	if (accelerating) {
@@ -62,7 +71,7 @@ void Player::Draw(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	SDL_RenderLine(renderer, position.X, position.Y, position.X + (velocity.X * 500), position.Y + (velocity.Y * 500));
 	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-	SDL_RenderLine(renderer, position.X, position.Y, position.X + (std::cos(angle) * 500), position.Y + (std::sin(angle) * 500));
+	SDL_RenderLine(renderer, position.X, position.Y, position.X + (std::cos(angle) * 250), position.Y + (std::sin(angle) * 250));
 }
 
 void Player::Rotate(float dir, float deltaTime)
@@ -84,6 +93,7 @@ void Player::SetBounds(Vector2 bounds)
 	Bounds = bounds;
 }
 
+#pragma region Key Setting
 void Player::SetUpKey(SDL_Keycode key)
 {
 	UpKey = key;
@@ -100,3 +110,35 @@ void Player::SetLeftKey(SDL_Keycode key)
 {
 	LeftKey = key;
 }
+#pragma endregion
+
+#pragma region Shooting
+bool Player::CanFire()
+{
+	return true;
+}
+
+bool Player::TryFire(Projectile* ref)
+{
+	if (!CanFire()) {
+		return false;
+	}
+
+	ref = &Fire();
+	return true;
+}
+Projectile& Player::Fire()
+{
+	firePos = position * fireOffset;
+
+	Projectile* bullet = new Projectile {firePos};
+	bullet->sprite = new Sprite{ bulletTexture };
+	bullet->sprite->scale = Vector2{ 0.25f, 0.25f };
+	bullet->velocity = velocity;
+
+	bullets.emplace_back(bullet);
+
+	return *bullet;
+}
+#pragma endregion
+

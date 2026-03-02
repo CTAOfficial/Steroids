@@ -4,7 +4,6 @@
 #include "Vector2.h"
 #include "UI/TextUI.h"
 #include <string>
-#include "Widgets/EntityManagementObserver.h"
 
 
 class Player;
