@@ -48,47 +48,33 @@ public:
 	}
 
 	Vector2 operator+ (const Vector2& obj) {
-
 		return { X += obj.X, Y += obj.Y };
-
 	}
 	Vector2 operator+= (const Vector2& obj) {
-
 		return *this + obj;
-
 	}
 	Vector2 operator- (const Vector2& obj) {
-
 		return { X -= obj.X, Y -= obj.Y };
 	}
 	Vector2 operator-= (const Vector2& obj) {
-
 		return *this - obj;
-
 	}
 	Vector2 operator* (const float& obj) {
-
 		return { X * obj, Y * obj };
 	}
 	Vector2 operator* (const int& obj) {
-
 		return { X * obj, Y * obj };
 	}
 	Vector2 operator* (const Vector2& obj) {
-
 		return { X *= obj.X, Y *= obj.Y };
 	}
 	Vector2 operator*= (const float& obj) {
-
 		return *this * obj;
 	}	
 	Vector2 operator*= (const int& obj) {
-
 		return *this * obj;
 	}
 	Vector2 operator*= (const Vector2& obj) {
-
 		return *this * obj;
-
 	}
 };
