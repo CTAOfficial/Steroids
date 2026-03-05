@@ -8,8 +8,20 @@ protected:
 	virtual void OnDraw(){}
 
 public:
-	Widget(std::string title);
-	~Widget() = default;
+	Widget();
+	Widget(std::string title) : Widget() {
+		Title = title;
+	}
+	~Widget();
+
+	bool Visible = true;
 
 	void Draw();
+	void SetTitle(std::string title) {
+		Title = title;
+	}
+	void Toggle() {
+		Visible = !Visible;
+	}
+	
 };

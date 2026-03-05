@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Basic2D.h"
-#include "../Vector2.h"
+#include "GameObject.h"
 
-
-class VelocityObject : public Basic2D {
+class VelocityObject : public GameObject {
 public:
-	Vector2 velocity;
+	VelocityObject(Vector2 pos) : GameObject(pos){}
 
-	float angle;
-	float radius;
+	Vector2 velocity;
+	float angle = 0;
+	//float radius;
+	float speed = 10;
+
+	void Update(Game& game, float deltaTime) override;
 };

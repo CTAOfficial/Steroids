@@ -1,13 +1,10 @@
 #pragma once
 
-#include "GameObject.h"
+#include "VelocityObject.h"
 
-class Projectile : public GameObject {
+class Projectile : public VelocityObject {
 public:
-	Projectile(Vector2 pos){}
+	Projectile(Vector2 pos) : VelocityObject(pos){}
 
-	Vector2 velocity;
-
-	void Update(Game& game, float deltaTime) override;
-
+	//void Update(Game& game, float deltaTime) override;
 };

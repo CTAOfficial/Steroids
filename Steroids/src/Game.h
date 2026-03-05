@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include "UI/TextUI.h"
 #include <string>
+#include <AsteroidManager.h>
 
 
 class Player;
@@ -24,6 +25,7 @@ public:
 	Vector2 screenCenter;
 
 	Player* player = nullptr;
+	AsteroidManager* SteroidManager = nullptr;
 
 	void Run() override;
 	void Start() override;

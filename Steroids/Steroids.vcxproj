@@ -142,24 +142,32 @@
     <ClCompile Include="include\imgui\imgui_tables.cpp" />
     <ClCompile Include="include\imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\AsteroidManager.cpp" />
     <ClCompile Include="src\CollisionSystem.cpp" />
+    <ClCompile Include="src\Entities\Asteroid.cpp" />
     <ClCompile Include="src\Entities\Basic2D.cpp" />
     <ClCompile Include="src\Entities\GameObject.cpp" />
     <ClCompile Include="src\Entities\Player.cpp" />
     <ClCompile Include="src\Entities\Projectile.cpp" />
+    <ClCompile Include="src\Entities\VelocityObject.cpp" />
     <ClCompile Include="src\EntityManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\WidgetManager.cpp" />
+    <ClCompile Include="src\Widgets\AsteroidManagementInspector.cpp" />
     <ClCompile Include="src\Widgets\EntityManagementObserver.cpp" />
+    <ClCompile Include="src\Widgets\PlayerWidget.cpp" />
     <ClCompile Include="src\Widgets\Widget.cpp" />
     <ClCompile Include="src\Windowing\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AsteroidManager.h" />
     <ClInclude Include="src\CollisionSystem.h" />
     <ClInclude Include="src\DynamicArray.h" />
+    <ClInclude Include="src\Entities\Asteroid.h" />
     <ClInclude Include="src\Entities\Basic2D.h" />
     <ClInclude Include="src\Entities\GameObject.h" />
     <ClInclude Include="src\Entities\Object.h" />
@@ -172,12 +180,18 @@
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\IUpdateable.h" />
     <ClInclude Include="src\RGBA.h" />
+    <ClInclude Include="src\Size.h" />
     <ClInclude Include="src\Sprite.h" />
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Utilities\Assets.h" />
     <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\WidgetManager.h" />
+    <ClInclude Include="src\Widgets\AsteroidManagementInspector.h" />
     <ClInclude Include="src\Widgets\EntityManagementObserver.h" />
+    <ClInclude Include="src\Widgets\GameObjectInspector.h" />
+    <ClInclude Include="src\Widgets\Inspectors\Inspector.h" />
+    <ClInclude Include="src\Widgets\PlayerWidget.h" />
     <ClInclude Include="src\Widgets\Widget.h" />
     <ClInclude Include="src\Windowing\Window.h" />
   </ItemGroup>

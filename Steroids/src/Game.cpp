@@ -6,15 +6,20 @@
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_sdl3.h"
 #include "imgui/backends/imgui_impl_sdlrenderer3.h"
+#include "Sprite.h"
 #include "DynamicArray.h"
 #include <iostream>
 #include <SDL3_image/SDL_image.h>
+#include <WidgetManager.h>
+#include <AsteroidManager.h>
 
 
 Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)size.Y)
 {
 	screenCenter = Vector2{ size.X * 0.5f, size.Y * 0.5f };
 	Bounds = size;
+
+	Sprite::MissingSprite = new Sprite{ renderer, "build/images/MissingSprite.png" };
 
 	player = new Player(0, renderer, Vector2{ screenCenter.X * 0.5f, Bounds.Y * 0.5f });
 	player->SetBounds(Bounds);
@@ -23,6 +28,8 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	player->SetDownKey(SDLK_S);
 	player->SetLeftKey(SDLK_A);
 	player->SetRightKey(SDLK_D);
+
+	SteroidManager = new AsteroidManager();
 
 }
 
@@ -74,6 +81,8 @@ void Game::Start()
 
 	ImGui_ImplSDL3_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer3_Init(renderer);
+
+	SteroidManager->Load(renderer);
 }
 void Game::LoadIcon() {
 	SDL_Surface* icon = IMG_Load("build/icon.png");
@@ -89,8 +98,11 @@ void Game::Update() {
 	currentTick = SDL_GetTicks();
 	double dt = static_cast<double>(currentTick - lastTick) / 1000.0;
 
+	WidgetManager::PreUpdate();
 	EntityManager::PreUpdate();
+	SteroidManager->Update();
 	EntityManager::Update(*this, dt);
+	WidgetManager::Update();
 	//CollisionSystem::Update(EntityManager::GetEntities());
 	EntityManager::Draw(renderer);
 	

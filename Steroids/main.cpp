@@ -45,7 +45,7 @@ int main() {
 	}*/
 
 	std::string name = "Steroids";
-	Game* game = new Game(name, Vector2{ 720, 1080 });
+	Game* game = new Game(name, Vector2{ 1080, 1080 });
 
 	game->Run();
 

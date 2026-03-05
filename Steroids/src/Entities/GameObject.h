@@ -20,6 +20,8 @@ public:
 		this->sprite = sprite;
 	}
 
+	bool DebugMode = false;
+
 	Sprite* sprite = nullptr;
 	Vector2 position = Vector2::Zero;
 	std::string tag;

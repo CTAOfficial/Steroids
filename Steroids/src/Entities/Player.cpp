@@ -3,11 +3,12 @@
 #include "../InputManager.h"
 #include "Sprite.h"
 #include "Projectile.h"
+#include "Widgets/PlayerWidget.h"
 #include <numbers>
 #include <iostream>
 
 
-Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
+Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : VelocityObject(pos)
 {
 	sprite = new Sprite{ renderer, "build/images/player.png" };
 	sprite->scale = { 0.15f, 0.15f };
@@ -16,10 +17,22 @@ Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : GameObject(pos)
 
 	playerIndex = index;
 	tag = "Player";
+
+	widget = new PlayerWidget{ this };
+	widget->Visible = false;
+}
+
+Player::~Player()
+{
+	// TODO: Destroy Widget
 }
 
 void Player::Update(Game& game, float deltaTime)
 {
+	if (InputManager::GetKey(SDLK_TAB)) {
+		widget->Toggle();
+	}
+
 	bool accelerating = false;
 
 	if (InputManager::GetKeyDown(UpKey)) {
@@ -49,7 +62,7 @@ void Player::Update(Game& game, float deltaTime)
 	}
 
 	if (velocity.Magitude() > MaxSpeed) {
-		std::cout << velocity.Magitude() << "\n";
+		//std::cout << velocity.Magitude() << "\n";
 		velocity.Normalize();
 		velocity *= MaxSpeed;
 	}
@@ -58,8 +71,8 @@ void Player::Update(Game& game, float deltaTime)
 	{ 
 		//TODO: handle deceleration
 		velocity *= (1 - deceleration) * deltaTime;
+		//std::cout << velocity.ToString();
 	}
-	//std::cout << velocity.ToString();
 
 	position += velocity;
 }
@@ -68,10 +81,12 @@ void Player::Draw(SDL_Renderer* renderer)
 {
 	GameObject::Draw(renderer);
 
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	SDL_RenderLine(renderer, position.X, position.Y, position.X + (velocity.X * 500), position.Y + (velocity.Y * 500));
-	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-	SDL_RenderLine(renderer, position.X, position.Y, position.X + (std::cos(angle) * 250), position.Y + (std::sin(angle) * 250));
+	if (DebugMode) {
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_RenderLine(renderer, position.X, position.Y, position.X + (velocity.X * 500), position.Y + (velocity.Y * 500));
+		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+		SDL_RenderLine(renderer, position.X, position.Y, position.X + (std::cos(angle) * 250), position.Y + (std::sin(angle) * 250));
+	}
 }
 
 void Player::Rotate(float dir, float deltaTime)
@@ -129,14 +144,14 @@ bool Player::TryFire(Projectile* ref)
 }
 Projectile& Player::Fire()
 {
-	firePos = position * fireOffset;
+	firePos = position;// *fireOffset;
 
-	Projectile* bullet = new Projectile {firePos};
+	Projectile* bullet = new Projectile { firePos };
 	bullet->sprite = new Sprite{ bulletTexture };
-	bullet->sprite->scale = Vector2{ 0.25f, 0.25f };
+	bullet->sprite->scale = Vector2{ 0.05f, 0.05f };
 	bullet->velocity = velocity;
 
-	bullets.emplace_back(bullet);
+	bullets.push_back(bullet);
 
 	return *bullet;
 }

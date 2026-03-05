@@ -2,6 +2,8 @@
 #include <SDL3_image/SDL_image.h>
 #include <iostream>
 
+Sprite* Sprite::MissingSprite;
+
 Sprite::Sprite()
 {
 
@@ -53,6 +55,10 @@ SDL_Texture* Sprite::LoadTexture(SDL_Renderer* renderer, std::string path)
         std::cout << "Unable to load texture from surface." << SDL_GetError() << "\n";
         return nullptr;
     }
+
+    // Texture Scaling (Jagged Edges etc)
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
+
     return texture;
 }
 

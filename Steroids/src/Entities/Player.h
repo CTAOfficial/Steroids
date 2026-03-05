@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "VelocityObject.h"
 #include "Projectile.h"
 #include <SDL3/SDL_render.h>
 #include <vector>
@@ -12,10 +12,13 @@ enum Direction {
 };
 
 class Game;
+class PlayerWidget;
 
-class Player : public GameObject {
+class Player : public VelocityObject {
 
 private:
+	PlayerWidget* widget;
+
 	Vector2 Bounds;
 	Vector2 firePos;
 	float fireOffset = 2;
@@ -26,7 +29,6 @@ private:
 
 	Vector2 velocity;
 	Vector2 acceleration;
-	float angle = 0;
 	float RotationSpeed = 4;
 	float MaxSpeed = 100;
 	float deceleration = 0.5f;
@@ -39,6 +41,7 @@ private:
 
 public:
 	Player(int index, SDL_Renderer* renderer, Vector2 pos);
+	~Player();
 
 	int playerIndex = 0;
 	float speed = 10;

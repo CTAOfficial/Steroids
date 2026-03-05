@@ -5,6 +5,8 @@
 
 class Sprite {
 public:
+	static Sprite* MissingSprite;
+
 	Sprite();
 	Sprite(SDL_Texture* texture);
 	Sprite(SDL_Renderer* renderer, std::string path);
