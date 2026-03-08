@@ -58,8 +58,15 @@ void AsteroidManagementInspector::OnDraw()
 					ImGui::Text("The address of the object in memory.");
 					ImGui::EndTooltip();
 				}
+				ImGui::Checkbox("Debug Mode", &asteroid->DebugMode);
 				ImGui::NewLine();
 
+				ImGui::Text(std::format("Size: {}", std::to_string(asteroid->size)).c_str());
+				if (ImGui::IsItemHovered()) {
+					ImGui::BeginTooltip();
+					ImGui::Text("The Size of the object. \n 0 - Small\n 1 - Medium\n 2 - Large");
+					ImGui::EndTooltip();
+				}
 				ImGui::Text(std::format("Position: {}", asteroid->position.ToString()).c_str());
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();

@@ -29,7 +29,7 @@ Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)s
 	player->SetLeftKey(SDLK_A);
 	player->SetRightKey(SDLK_D);
 
-	SteroidManager = new AsteroidManager();
+	SteroidManager = new AsteroidManager(Bounds);
 
 }
 

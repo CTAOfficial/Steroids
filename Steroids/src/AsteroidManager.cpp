@@ -1,6 +1,7 @@
 #include "AsteroidManager.h"
 #include "Entities/Asteroid.h"
 #include "Sprite.h"
+#include "util.h"
 #include <InputManager.h>
 #include <format>
 
@@ -48,7 +49,7 @@ Asteroid& AsteroidManager::CreateAsteroid()
 {
     Asteroid* steroid = new Asteroid{ RandomPosition(), Size::Small };
     steroid->sprite = SpriteFromSize(steroid->size);
-    AssignVelocity(steroid);
+    AssignVelocity(*steroid);
     steroid->tag = std::format("Asteroid #{}", index++);
 
     asteroids.push_back(steroid);
@@ -60,21 +61,25 @@ bool AsteroidManager::RemoveAsteroid(Asteroid* asteroid)
     if (std::erase(asteroids, asteroid)) {
         return true;
     }
-
     return false;
 }
 
 Vector2 AsteroidManager::RandomPosition()
 {
-    Vector2 pos = Vector2{ 540, 540 };
-    return pos;
+    // Integer random is different than float
+    int x = util::GetRandom((int)-50, (int)bounds.X + 50);
+    int y = util::GetRandom((int)-50, (int)bounds.Y + 50);
+
+    return Vector2{ x, y };
 }
 
-Vector2& AsteroidManager::AssignVelocity(Asteroid* asteroid)
+Vector2& AsteroidManager::AssignVelocity(Asteroid& asteroid)
 {
-    Vector2 velocity = Vector2::One;
+    Vector2 pos = asteroid.position;
+    Vector2 center = bounds * 0.5f;
+    Vector2 velocity = (center - pos) * 0.01f;
 
-    asteroid->velocity = velocity;
+    asteroid.velocity = velocity;
     return velocity;
 }
 

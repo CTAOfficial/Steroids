@@ -146,7 +146,7 @@ Projectile& Player::Fire()
 {
 	firePos = position;// *fireOffset;
 
-	Projectile* bullet = new Projectile { firePos };
+	Projectile* bullet = new Projectile { firePos, 100 };
 	bullet->sprite = new Sprite{ bulletTexture };
 	bullet->sprite->scale = Vector2{ 0.05f, 0.05f };
 	bullet->velocity = velocity;

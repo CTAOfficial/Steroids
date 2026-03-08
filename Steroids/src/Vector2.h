@@ -12,9 +12,14 @@ public:
 	Vector2(float x) : Vector2() {
 		X = x;
 	}
-	Vector2(float x, float y) : Vector2() {
-		X = x;
+	Vector2(int x) : Vector2() {
+		X = (float)x;
+	}
+	Vector2(float x, float y) : Vector2(x) {
 		Y = y;
+	}
+	Vector2(int x, int y) : Vector2(x) {
+		Y = (float)y;
 	}
 
 	float X = 0;

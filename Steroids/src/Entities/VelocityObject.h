@@ -12,4 +12,6 @@ public:
 	float speed = 10;
 
 	void Update(Game& game, float deltaTime) override;
+	void Draw(SDL_Renderer* renderer) override;
+
 };

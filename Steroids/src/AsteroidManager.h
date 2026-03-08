@@ -14,15 +14,17 @@ private:
 	std::vector<Asteroid*> asteroids;
 	AsteroidManagementInspector* widget;
 	int index = 0;
+	Vector2 bounds;
 
 	Asteroid& CreateAsteroid();
 	Vector2 RandomPosition();
-	Vector2& AssignVelocity(Asteroid* asteroid);
+	Vector2& AssignVelocity(Asteroid& asteroid);
 	Sprite* SpriteFromSize(Size size);
 
 public:
-	AsteroidManager() {
+	AsteroidManager(Vector2 bounds) {
 		widget = new AsteroidManagementInspector(this);
+		this->bounds = bounds;
 	}
 
 	bool UseLimit = true;
