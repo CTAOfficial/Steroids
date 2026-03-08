@@ -25,13 +25,17 @@ public:
 		widget = new AsteroidManagementInspector(this);
 	}
 
+	bool UseLimit = true;
+	int Limit = 10;
+
 	std::map<Size, Sprite*> sprites;
 
 	void Load(SDL_Renderer* renderer);
 	void Update();
 
 	bool CanCreate();
-	bool RequestAsteroid();
+	bool RemoveAsteroid(Asteroid* asteroid);
+	bool RequestAsteroid(Asteroid* asteroid = nullptr);
 	std::vector<Asteroid*>& GetAsteroids() {
 		return asteroids;
 	}

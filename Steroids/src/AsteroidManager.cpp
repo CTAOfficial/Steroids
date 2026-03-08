@@ -23,19 +23,24 @@ void AsteroidManager::Update()
     if (InputManager::GetKey(SDLK_F1)) {
         widget->Toggle();
     }
-
-    if (CanCreate()) {
-        CreateAsteroid();
-    }
 }
 
 bool AsteroidManager::CanCreate()
 {
+    if (asteroids.size() >= Limit && UseLimit) {
+        return false;
+    }
+
     return true;
 }
 
-bool AsteroidManager::RequestAsteroid()
+bool AsteroidManager::RequestAsteroid(Asteroid* asteroid)
 {
+    if (CanCreate()) {
+        asteroid = &CreateAsteroid();
+        return true;
+    }
+
     return false;
 }
 
@@ -48,6 +53,15 @@ Asteroid& AsteroidManager::CreateAsteroid()
 
     asteroids.push_back(steroid);
     return *steroid;
+}
+
+bool AsteroidManager::RemoveAsteroid(Asteroid* asteroid)
+{
+    if (std::erase(asteroids, asteroid)) {
+        return true;
+    }
+
+    return false;
 }
 
 Vector2 AsteroidManager::RandomPosition()

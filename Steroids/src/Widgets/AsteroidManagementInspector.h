@@ -1,6 +1,7 @@
 #pragma once
 #include "Inspectors/Inspector.h"
 
+class Asteroid;
 class AsteroidManager;
 
 class AsteroidManagementInspector : public Inspector<AsteroidManager*> {
