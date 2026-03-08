@@ -20,7 +20,16 @@ public:
 	float X = 0;
 	float Y = 0;
 
-	float Magitude() {
+#pragma region Methods
+	float Distance(Vector2 vec) const {
+		//Vector2 v = vec - *this;
+
+		float dx = vec.X - X;
+		float dy = vec.Y - Y;
+
+		return sqrtf((dx * dx) + (dy * dy));
+	}
+	float Magitude() const {
 		return sqrtf(X * X + Y * Y);
 	}
 	Vector2 Normalized() {
@@ -35,18 +44,23 @@ public:
 
 		return vec;
 	}
-	void Normalize() {
+	Vector2 Normalize() {
 		Vector2 normalized = Normalized();
 
 		X = normalized.X;
 		Y = normalized.Y;
+		return *this;
 	}
 
 
 	std::string ToString() const {
 		return std::string("(" + std::to_string(X) + ", " + std::to_string(Y) + ")");
 	}
+#pragma endregion
 
+	
+
+#pragma region Operator Overloading
 	Vector2 operator+ (const Vector2& obj) {
 		return { X += obj.X, Y += obj.Y };
 	}
@@ -76,7 +90,7 @@ public:
 		X *= obj;
 		Y *= obj;
 		return *this;
-	}	
+	}
 	Vector2& operator*= (const int& obj) {
 		X *= obj;
 		Y *= obj;
@@ -87,4 +101,7 @@ public:
 		Y *= obj.Y;
 		return *this;
 	}
+#pragma endregion
+
+	
 };
