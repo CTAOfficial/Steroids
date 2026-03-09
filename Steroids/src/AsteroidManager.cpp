@@ -50,9 +50,10 @@ bool AsteroidManager::RequestAsteroid(Asteroid* asteroid)
 Asteroid& AsteroidManager::CreateAsteroid()
 {
     Asteroid* steroid = new Asteroid{ RandomPosition(), Size::Small };
-    steroid->sprite = SpriteFromSize(steroid->size);
-    AssignVelocity(*steroid);
     steroid->name = std::format("Asteroid #{}", index++);
+    steroid->sprite = SpriteFromSize(steroid->size);
+    steroid->SetBounds(bounds);
+    AssignVelocity(*steroid);
 
     asteroids.push_back(steroid);
     return *steroid;

@@ -103,11 +103,6 @@ void Player::Rotate(float dir, float deltaTime)
 	sprite->rotation = angle * 180 / std::numbers::pi;
 }
 
-void Player::SetBounds(Vector2 bounds)
-{
-	Bounds = bounds;
-}
-
 #pragma region Key Setting
 void Player::SetUpKey(SDL_Keycode key)
 {

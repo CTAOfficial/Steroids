@@ -27,6 +27,11 @@ public:
 	Sprite* sprite = nullptr;
 	Vector2 position = Vector2::Zero;
 	std::string tag;
+	Vector2 Bounds;
+	void SetBounds(Vector2 bounds) {
+		Bounds = bounds;
+	}
+
 
 	void Update(Game& game, float deltaTime) override {}
 	void Draw(SDL_Renderer* renderer) override;

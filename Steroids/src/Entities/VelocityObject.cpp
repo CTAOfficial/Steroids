@@ -3,6 +3,10 @@
 void VelocityObject::Update(Game& game, float deltaTime)
 {
 	position += velocity * (speed * deltaTime);
+
+	if (position.X + 20 > Bounds.X || position.X - 20 < 0) {
+		position = -Bounds.X;
+	}
 }
 
 void VelocityObject::Draw(SDL_Renderer* renderer)

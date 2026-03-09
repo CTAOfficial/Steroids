@@ -19,7 +19,6 @@ class Player : public VelocityObject {
 private:
 	PlayerWidget* widget;
 
-	Vector2 Bounds;
 	Vector2 firePos;
 	float fireOffset = 2;
 	SDL_Keycode UpKey = NULL;
@@ -50,7 +49,6 @@ public:
 	void Draw(SDL_Renderer* renderer) override;
 	void Rotate(float dir, float deltaTime);
 
-	void SetBounds(Vector2 bounds);
 
 	void SetUpKey(SDL_Keycode key);
 	void SetDownKey(SDL_Keycode key);
