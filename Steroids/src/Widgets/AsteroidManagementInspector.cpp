@@ -70,12 +70,15 @@ void AsteroidManagementInspector::OnDraw()
 				}
 
 				// Position
-				ImGui::Text(std::format("Position: {}", asteroid->position.ToString()).c_str());
+				ImGui::Text("Position: ");
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();
 					ImGui::Text("The position of the object.");
 					ImGui::EndTooltip();
 				}
+				ImGui::SameLine();
+				float* positions[2] = { &asteroid->position.X, &asteroid->position.Y };
+				ImGui::InputFloat2("#", *positions);
 
 				// Velocity
 				ImGui::Text("Velocity: ");
