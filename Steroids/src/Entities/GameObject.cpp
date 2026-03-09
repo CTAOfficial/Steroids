@@ -3,7 +3,7 @@
 #include <EntityManager.h>
 
 
-GameObject::GameObject()
+GameObject::GameObject() : Object()
 {
 	EntityManager::Add(this);
 }

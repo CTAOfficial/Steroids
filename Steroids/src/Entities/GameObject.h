@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 #include "IDrawable.h"
 #include "IUpdateable.h"
 #include <Vector2.h>
@@ -7,13 +8,14 @@
 class Game;
 class Sprite;
 
-class GameObject : IDrawable, IUpdateable {
+class GameObject : public Object, public IDrawable, public IUpdateable {
 protected:
+	using Object::Object;
 	GameObject();
 public:
 	virtual ~GameObject() = default;
 
-	GameObject(Vector2 pos) : GameObject() {
+	GameObject(Vector2 pos) : GameObject()  {
 		position = pos;
 	}
 	GameObject(Sprite* sprite, Vector2 pos) : GameObject(pos) {

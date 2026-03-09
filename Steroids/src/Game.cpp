@@ -7,11 +7,10 @@
 #include "imgui/backends/imgui_impl_sdl3.h"
 #include "imgui/backends/imgui_impl_sdlrenderer3.h"
 #include "Sprite.h"
-#include "DynamicArray.h"
-#include <iostream>
 #include <SDL3_image/SDL_image.h>
 #include <WidgetManager.h>
 #include <AsteroidManager.h>
+#include <Utilities/Assets.h>
 
 
 Game::Game(std::string& title, Vector2 size) : Window(title, (int)size.X, (int)size.Y)
@@ -71,6 +70,7 @@ void Game::Run()
 
 void Game::Start()
 {
+	//Assets.Load("build/");
 	LoadIcon();
 
 	IMGUI_CHECKVERSION();

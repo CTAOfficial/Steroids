@@ -4,12 +4,14 @@
 #include "util.h"
 #include <InputManager.h>
 #include <format>
+#include <Utilities/Assets.h>
 
 void AsteroidManager::Load(SDL_Renderer* renderer)
 {
     // Load Sprites
     
     Sprite* small = new Sprite{ renderer, "build/images/asteroid_small.png" };
+    //Sprite* small = Assets.Get("images/asteroid_small.png");
     small->scale = Vector2{ 0.05f, 0.05f };
 
     //Sprite* medium = new Sprite{ renderer, "build/images/asteroid_medium.png" };
@@ -50,7 +52,7 @@ Asteroid& AsteroidManager::CreateAsteroid()
     Asteroid* steroid = new Asteroid{ RandomPosition(), Size::Small };
     steroid->sprite = SpriteFromSize(steroid->size);
     AssignVelocity(*steroid);
-    steroid->tag = std::format("Asteroid #{}", index++);
+    steroid->name = std::format("Asteroid #{}", index++);
 
     asteroids.push_back(steroid);
     return *steroid;

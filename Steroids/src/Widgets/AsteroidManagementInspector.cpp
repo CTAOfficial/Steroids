@@ -32,7 +32,7 @@ void AsteroidManagementInspector::OnDraw()
 		//ImGui::TableHeadersRow();
 
 		ImGui::TableSetupColumn("AsteroidList_Indexer", ImGuiTableColumnFlags_WidthFixed, 10);
-		ImGui::TableSetupColumn("AsteroidList_Tag", ImGuiTableColumnFlags_WidthStretch, 10);
+		ImGui::TableSetupColumn("AsteroidList_Name", ImGuiTableColumnFlags_WidthStretch, 10);
 
 		for (int row = 0; row < asteroids.size(); row++) {
 			ImGui::PushID(row);
@@ -51,7 +51,7 @@ void AsteroidManagementInspector::OnDraw()
 			ImGui::TableSetColumnIndex(1);			
 			
 			// Asteroid Tag
-			if (ImGui::CollapsingHeader(asteroid->tag.c_str())) {
+			if (ImGui::CollapsingHeader(asteroid->name.c_str())) {
 				ImGui::Text(std::format("Address: {}", (void*)asteroid).c_str());
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();
@@ -61,24 +61,36 @@ void AsteroidManagementInspector::OnDraw()
 				ImGui::Checkbox("Debug Mode", &asteroid->DebugMode);
 				ImGui::NewLine();
 
+				// Speed
 				ImGui::Text(std::format("Size: {}", std::to_string(asteroid->size)).c_str());
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();
 					ImGui::Text("The Size of the object. \n 0 - Small\n 1 - Medium\n 2 - Large");
 					ImGui::EndTooltip();
 				}
+
+				// Position
 				ImGui::Text(std::format("Position: {}", asteroid->position.ToString()).c_str());
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();
 					ImGui::Text("The position of the object.");
 					ImGui::EndTooltip();
 				}
-				ImGui::Text(std::format("Velocity: {}", asteroid->velocity.ToString()).c_str());
+
+				// Velocity
+				ImGui::Text("Velocity: ");
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();
 					ImGui::Text("The velocity of the object.");
 					ImGui::EndTooltip();
 				}
+				ImGui::SameLine();
+				float* velocities[2] = { &asteroid->velocity.X, &asteroid->velocity.Y };
+				ImGui::InputFloat2("##", *velocities);
+				
+				// Speed
+				ImGui::Text("Speed: ");
+				ImGui::InputFloat("##", &asteroid->speed);
 			}
 			if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
 				ImGui::OpenPopup("AsteroidContextMenu");

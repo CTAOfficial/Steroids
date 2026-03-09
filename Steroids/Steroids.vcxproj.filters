@@ -99,6 +99,9 @@
     <ClCompile Include="src\Widgets\AsteroidManagementInspector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utilities\Assets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entities\Basic2D.h">
@@ -189,6 +192,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Widgets\GameObjectInspector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Widgets\AssetWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

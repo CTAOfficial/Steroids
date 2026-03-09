@@ -24,7 +24,7 @@ Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : VelocityObject(
 
 Player::~Player()
 {
-	// TODO: Destroy Widget
+	delete widget;
 }
 
 void Player::Update(Game& game, float deltaTime)

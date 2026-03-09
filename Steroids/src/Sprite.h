@@ -1,12 +1,14 @@
 #pragma once
+#include "Entities/Object.h"
+#include "Vector2.h"
 #include <SDL3/SDL_render.h>
 #include <string>
-#include "Vector2.h"
 
-class Sprite {
+class Sprite : public Object {
 public:
 	static Sprite* MissingSprite;
 
+	using Object::Object;
 	Sprite();
 	Sprite(SDL_Texture* texture);
 	Sprite(SDL_Renderer* renderer, std::string path);
