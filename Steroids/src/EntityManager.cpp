@@ -38,6 +38,7 @@ void EntityManager::PreUpdate()
 		GameObject* entity = DestroyQueue.top();
 		Remove(entity);
 		DestroyQueue.pop();
+		delete entity;
 	}
 
 	while (!ConstructionQueue.empty()) {
