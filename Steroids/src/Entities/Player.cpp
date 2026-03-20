@@ -1,8 +1,9 @@
 #include "Player.h"
 #include "../Game.h"
 #include "../InputManager.h"
-#include "Sprite.h"
 #include "Projectile.h"
+#include "Sprite.h"
+#include "Utilities/Timer.h"
 #include "Widgets/PlayerWidget.h"
 #include <numbers>
 #include <iostream>
@@ -18,6 +19,8 @@ Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : VelocityObject(
 	playerIndex = index;
 	tag = "Player";
 
+	timer = new Timer{ 0, fireCooldown };
+
 	widget = new PlayerWidget{ this };
 	widget->Visible = false;
 }
@@ -25,6 +28,7 @@ Player::Player(int index, SDL_Renderer* renderer, Vector2 pos) : VelocityObject(
 Player::~Player()
 {
 	delete widget;
+	delete timer;
 }
 
 void Player::Update(Game& game, float deltaTime)
@@ -32,6 +36,8 @@ void Player::Update(Game& game, float deltaTime)
 	if (InputManager::GetKey(SDLK_TAB)) {
 		widget->Toggle();
 	}
+
+	timer->Count(deltaTime);
 
 	bool accelerating = false;
 
@@ -45,7 +51,7 @@ void Player::Update(Game& game, float deltaTime)
 		Rotate(1, deltaTime);
 	}
 
-	if (InputManager::GetKey(SDLK_SPACE)) {
+	if (InputManager::GetKeyDown(SDLK_SPACE)) {
 		TryFire();
 	}
 	
@@ -75,6 +81,8 @@ void Player::Update(Game& game, float deltaTime)
 	}
 
 	position += velocity;
+
+	GameObject::Update(game, deltaTime);
 }
 
 void Player::Draw(SDL_Renderer* renderer)
@@ -82,6 +90,9 @@ void Player::Draw(SDL_Renderer* renderer)
 	GameObject::Draw(renderer);
 
 	if (DebugMode) {
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+		SDL_RenderRect(renderer, &sprite->rect);
+
 		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 		SDL_RenderLine(renderer, position.X, position.Y, position.X + (velocity.X * 500), position.Y + (velocity.Y * 500));
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
@@ -125,7 +136,7 @@ void Player::SetLeftKey(SDL_Keycode key)
 #pragma region Shooting
 bool Player::CanFire()
 {
-	return true;
+	return timer->Complete();
 }
 
 bool Player::TryFire(Projectile* ref)
@@ -135,16 +146,19 @@ bool Player::TryFire(Projectile* ref)
 	}
 
 	ref = &Fire();
+	timer->Reset();
 	return true;
 }
 Projectile& Player::Fire()
 {
-	firePos = position;// *fireOffset;
+	//firePos = position *fireOffset;
 
-	Projectile* bullet = new Projectile { firePos, 100 };
-	bullet->sprite = new Sprite{ bulletTexture };
+	Projectile* bullet = new Projectile { this, position, new Sprite{ bulletTexture } };
+	bullet->sprite->name = "Bullet Sprite";
+	bullet->speed = 100;
 	bullet->sprite->scale = Vector2{ 0.05f, 0.05f };
-	bullet->velocity = velocity;
+	bullet->velocity = Vector2{ std::cos(angle), std::sin(angle) };
+	bullet->SetBounds(Bounds);
 
 	bullets.push_back(bullet);
 

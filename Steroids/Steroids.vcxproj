@@ -156,6 +156,7 @@
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\UI\TextUI.cpp" />
     <ClCompile Include="src\Utilities\Assets.cpp" />
+    <ClCompile Include="src\Utilities\Timer.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\WidgetManager.cpp" />
     <ClCompile Include="src\Widgets\AsteroidManagementInspector.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="src\UI\TextUI.h" />
     <ClInclude Include="src\util.h" />
     <ClInclude Include="src\Utilities\Assets.h" />
+    <ClInclude Include="src\Utilities\Timer.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\WidgetManager.h" />
     <ClInclude Include="src\Widgets\AssetWidget.h" />

@@ -61,7 +61,7 @@ void AsteroidManagementInspector::OnDraw()
 				ImGui::Checkbox("Debug Mode", &asteroid->DebugMode);
 				ImGui::NewLine();
 
-				// Speed
+				// Size
 				ImGui::Text(std::format("Size: {}", std::to_string(asteroid->size)).c_str());
 				if (ImGui::IsItemHovered()) {
 					ImGui::BeginTooltip();

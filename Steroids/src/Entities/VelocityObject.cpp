@@ -1,12 +1,15 @@
 #include "VelocityObject.h"
+#include "Sprite.h"
 
 void VelocityObject::Update(Game& game, float deltaTime)
 {
-	position += velocity * (speed * deltaTime);
-
-	if (position.X + 20 > Bounds.X || position.X - 20 < 0) {
-		position = -Bounds.X;
-	}
+	// check bounds
+	SDL_FRect rect = sprite->rect;
+	if ((position.Y + rect.h) <= 0) { position.Y = Bounds.Y - 1; }
+	if ((position.Y - 1) >= Bounds.Y) { position.Y = 0; }
+	
+	position += velocity * speed * deltaTime;
+	GameObject::Update(game, deltaTime);
 }
 
 void VelocityObject::Draw(SDL_Renderer* renderer)

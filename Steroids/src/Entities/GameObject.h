@@ -18,9 +18,7 @@ public:
 	GameObject(Vector2 pos) : GameObject()  {
 		position = pos;
 	}
-	GameObject(Sprite* sprite, Vector2 pos) : GameObject(pos) {
-		this->sprite = sprite;
-	}
+	GameObject(Sprite* sprite, Vector2 pos);
 
 	bool DebugMode = false;
 
@@ -33,7 +31,7 @@ public:
 	}
 
 
-	void Update(Game& game, float deltaTime) override {}
+	void Update(Game& game, float deltaTime) override;
 	void Draw(SDL_Renderer* renderer) override;
 
 	static void Destroy(GameObject& entity);

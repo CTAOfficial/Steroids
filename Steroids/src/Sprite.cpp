@@ -9,9 +9,20 @@ Sprite::Sprite()
 
 }
 
+Sprite::Sprite(const Sprite& other) : Sprite()
+{
+    texture = other.texture;
+    center = other.center;
+    //position = other.position; // needed?
+    scale = other.scale;
+    rect = SDL_FRect{ position.X, position.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
+}
+
 Sprite::Sprite(SDL_Texture* texture) : Sprite()
 {
     this->texture = texture;
+    center = { rect.w * 0.5f, rect.h * 0.5f };
+    rect = SDL_FRect{ position.X, position.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
 }
 
 Sprite::Sprite(SDL_Renderer* renderer, std::string path) : Sprite()
@@ -30,7 +41,7 @@ void Sprite::Draw(SDL_Renderer* renderer)
 {
     centerPos = position + center;
 
-    if (texture != nullptr) {
+    if (texture) {
         rect = SDL_FRect { centerPos.X, centerPos.Y, (float)texture->w * scale.X, (float)texture->h * scale.Y };
         SDL_RenderTextureRotated(renderer, texture, NULL, const_cast<SDL_FRect*>(&rect), rotation, NULL, SDL_FLIP_NONE);
     }

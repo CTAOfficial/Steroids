@@ -6,8 +6,9 @@
 #include "Vector2.h"
 #include <Widgets/AsteroidManagementInspector.h>
 
-class Sprite;
 class Asteroid;
+class Sprite;
+class Timer;
 
 class AsteroidManager {
 private:
@@ -15,17 +16,16 @@ private:
 	AsteroidManagementInspector* widget;
 	int index = 0;
 	Vector2 bounds;
+	Timer* timer = nullptr;
 
 	Asteroid& CreateAsteroid();
+	Size RandomSize();
 	Vector2 RandomPosition();
 	Vector2& AssignVelocity(Asteroid& asteroid);
 	Sprite* SpriteFromSize(Size size);
 
 public:
-	AsteroidManager(Vector2 bounds) {
-		widget = new AsteroidManagementInspector(this);
-		this->bounds = bounds;
-	}
+	AsteroidManager(Vector2 bounds);
 
 	bool UseLimit = true;
 	int Limit = 10;
@@ -33,7 +33,7 @@ public:
 	std::map<Size, Sprite*> sprites;
 
 	void Load(SDL_Renderer* renderer);
-	void Update();
+	void Update(float deltatime);
 
 	bool CanCreate();
 	bool RemoveAsteroid(Asteroid* asteroid);

@@ -11,6 +11,16 @@ void EntityManager::Add(GameObject* entity)
 }
 
 void EntityManager::AddToRemove(GameObject* entity) {
+	std::stack check(DestroyQueue);
+	
+	// hate this, never do this (especially for large destroy queues
+	while (!check.empty()) {
+		if (check.top() == entity) {
+			return;
+		}
+		check.pop();
+	}
+
 	DestroyQueue.push(entity);
 }
 void EntityManager::Remove(GameObject* entity)

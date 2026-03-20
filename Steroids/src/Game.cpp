@@ -100,7 +100,7 @@ void Game::Update() {
 
 	WidgetManager::PreUpdate();
 	EntityManager::PreUpdate();
-	SteroidManager->Update();
+	SteroidManager->Update(dt);
 	EntityManager::Update(*this, dt);
 	WidgetManager::Update();
 	//CollisionSystem::Update(EntityManager::GetEntities());

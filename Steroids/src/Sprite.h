@@ -10,6 +10,7 @@ public:
 
 	using Object::Object;
 	Sprite();
+	Sprite(const Sprite& other);
 	Sprite(SDL_Texture* texture);
 	Sprite(SDL_Renderer* renderer, std::string path);
 	~Sprite();
